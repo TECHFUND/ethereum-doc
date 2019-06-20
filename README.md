@@ -138,7 +138,7 @@ https://web3js.readthedocs.io/en/1.0/
 - 解説用スマートコントラクト1  
 
 ```simpleStorage.sol
-pragma solidity >=0.4.0 <0.6.0;
+pragma solidity >=0.4.0;
 
 contract SimpleStorage {
     uint storedData;
