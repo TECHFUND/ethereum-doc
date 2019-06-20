@@ -191,4 +191,6 @@ contract Coin {
 ```
 
 
+Hayakawa Mail Address  
+yi_hayakawa@techfund.jp  
 
