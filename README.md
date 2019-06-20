@@ -122,7 +122,7 @@ https://remix.ethereum.org/#optimize=false
 
 
 
-## Advanced
+## Reference
 
 - Solidity  
 Ethereumのスマートコントラクト開発において最も代表的な言語  
@@ -131,5 +131,64 @@ https://solidity.readthedocs.io/en/v0.5.3/
 - Web3.js  
 Ethereumノードとの通信に必要なJSライブラリ　※他言語用にもそれぞれ存在  
 https://web3js.readthedocs.io/en/1.0/  
+
+
+## サンプルコードを通じたSolidity学習
+
+- 解説用スマートコントラクト1  
+
+```simpleStorage.sol
+pragma solidity >=0.4.0 <0.6.0;
+
+contract SimpleStorage {
+    uint storedData;
+
+    function set(uint x) public {
+        storedData = x;
+    }
+
+    function get() public view returns (uint) {
+        return storedData;
+    }
+}
+```
+
+
+- 解説用スマートコントラクト2  
+
+```simpleCoin.sol
+pragma solidity ^0.5.0;
+
+contract Coin {
+    // The keyword "public" makes those variables
+    // easily readable from outside.
+    address public minter;
+    mapping (address => uint) public balances;
+
+    // Events allow light clients to react to
+    // changes efficiently.
+    event Sent(address from, address to, uint amount);
+
+    // This is the constructor whose code is
+    // run only when the contract is created.
+    constructor() public {
+        minter = msg.sender;
+    }
+
+    function mint(address receiver, uint amount) public {
+        require(msg.sender == minter);
+        require(amount < 1e60);
+        balances[receiver] += amount;
+    }
+
+    function send(address receiver, uint amount) public {
+        require(amount <= balances[msg.sender], "Insufficient balance.");
+        balances[msg.sender] -= amount;
+        balances[receiver] += amount;
+        emit Sent(msg.sender, receiver, amount);
+    }
+}
+```
+
 
 
