@@ -243,7 +243,82 @@ console.log("------/3")
 </html>
 ```
 
+## サーバー起動  
+
+Metamaskをローカルで利用する際に必要  
+
+```sh
+npm install -g live-server  
+cd {適当なディレクトリ}  
+vi index.html  
+live-server .  
+```
+
+## 開発アドバイス  
+
+## 型
+- bool: 論理値。true or false 
+- struct: 構造体。  
+ex) struct Voter {uint weight; bool voted;}
+- string: 文字列
+
+## 決済
+- （Remixにて）メソッドを実行送金する時にvalueを設定するとコントラクトへの送金も可能  
+コントラクトにて、送金者はmsg.sender、金額はmsg.valueで取得できる  
+
+## 抽選
+特殊な変数一覧  
+https://solidity.readthedocs.io/en/v0.5.0/units-and-global-variables.html#special-variables-and-functions  
+
+
+## 独自スマートコントラクト開発
+
+※最低要件さえ満たしていればその他の機能は何でもアリです
+
+### 投票  
+
+最小要件  
+
+- 候補数設定（初期化時）  
+- 各候補名設定（初期化時）  
+- 投票  
+- 勝者取得  
+
+オプション例  
+
+- 投票管理者設定  
+- 投票権の配布  
+- 投票権の重み付け  
+- 投票受付締切  
+
+
+### 決済  
+
+最小要件  
+
+- 販売者アドレス設定（初期化時）  
+- 商品種別IDと各価格設定  
+- 購入とコントラクトへのデポジット（デポジット額をウォレットアドレス毎に管理）  
+- 売上の引出  
+
+オプション例  
+
+- 商品在庫数設定  
+- ディスカウントクーポン  
+- エスクロー  
+
+### 抽選  
+
+最小要件  
+
+- オーナー設定  
+- 抽選開始  
+- 抽選参加  
+- 抽選受付終了  
+- ランダム選択、当選者決定
+
+
 
 Hayakawa Mail Address  
-yi_hayakawa@techfund.jp  
+yi_hayakawa@techfund.jp 
 
