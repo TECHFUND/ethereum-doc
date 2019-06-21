@@ -243,6 +243,105 @@ console.log("------/3")
 </html>
 ```
 
+
+```index.html
+<html>
+<body>
+<script>
+
+const desiredNetwork = '3' // Ethereum Ropsten network ID
+
+// Metamaskがインストールされているか確認
+if (typeof window.ethereum === 'undefined') {
+  alert('Looks like you need a Dapp browser to get started.')
+  alert('Consider installing MetaMask!')
+
+} else {
+  window.web3 = new Web3(ethereum);
+  // Metamaskを連携させる
+  ethereum.enable()
+
+  // Metamask連携を拒否された場合
+  .catch(function (reason) {
+    if (reason === 'User rejected provider access') {
+      // 署名を拒否した場合
+    } else {
+      alert('There was an issue signing you in.')
+    }
+  })
+
+  // ユーザが連携を許可した場合、Metamaskのアカウントを取得可能
+  .then(function (accounts) {
+    // Ropstenにいることを確認
+    if (ethereum.networkVersion !== desiredNetwork) {
+      alert('This application requires Ropsten network, please switch it in your MetaMask UI.')
+    }
+
+    // Metamaskアカウント取得
+    const account = accounts[0]
+        
+    // トランザクション
+    //sendEther(account, function (err, transaction) {console.log(transaction)});
+    sendTransaction(account, function (err, transaction) {console.log(transaction)});
+
+    // データ取得
+    callMethod(function (err, result) {console.log(result)});
+
+
+  })
+}
+
+function callMethod (callback) {
+        var abi = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"INITIAL_SUPPLY","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_value","type":"uint256"}],"name":"burn","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_value","type":"uint256"}],"name":"burnFrom","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_decimals","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"_burner","type":"address"},{"indexed":false,"name":"_value","type":"uint256"}],"name":"Burn","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"}];
+        var address = "0x4BFBa4a8F28755Cb2061c413459EE562c6B9c51b";
+        var contract = web3.eth.contract(abi).at(address);
+
+        try {
+          contract.balanceOf.call("0x922b992698381C7dC8d23684E2CAeF396b0b73a4", function(error, result){
+            alert("Successufully got data: " + result);
+          });
+        } catch (error) {
+          // User denied account access...
+          console.log(error);
+        }
+}
+
+function sendTransaction (account, callback) {
+        var abi = [{"constant":false,"inputs":[{"name":"x","type":"uint256"}],"name":"set","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}];
+        var address = "0xa4d7933660b48bf95a9698fefc6134d18cb77824";
+        var contract = web3.eth.contract(abi).at(address);
+
+        try {
+          contract.set.sendTransaction("12345", {value: 100000000, from: account}, function(error, result){
+            alert("Successuful Transaction: " + result);
+          });
+        } catch (error) {
+          // User denied account access...
+          console.log(error);
+        }
+}
+
+function sendEther (account, callback) {
+        try {
+            web3.eth.sendTransaction({
+            from: account,
+            to: '0x9e0ADAb5b514B8c604190B8F6674F2A83A8c17eC',
+            value: '200000000000000'}, function(error, result) {
+            
+            });
+        } catch (error) {
+          // User denied account access...
+          console.log(error);
+        }
+}
+
+</script>
+</body>
+</html>
+
+```
+
+
 ## サーバー起動  
 
 Metamaskをローカルで利用する際に必要  
