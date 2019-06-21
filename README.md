@@ -265,6 +265,8 @@ ex) struct Voter {uint weight; bool voted;}
 ## 決済
 - （Remixにて）メソッドを実行送金する時にvalueを設定するとコントラクトへの送金も可能  
 コントラクトにて、送金者はmsg.sender、金額はmsg.valueで取得できる  
+- コントラクトにデポジットされたEtherを引き出すには  
+msg.sender.transfer(amount); で可能(msg.sender(引出トランザクションの実行者アドレス)にamount分送金 )
 
 ## 抽選
 特殊な変数一覧  
