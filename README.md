@@ -419,6 +419,19 @@ https://solidity.readthedocs.io/en/v0.5.0/units-and-global-variables.html#specia
 - ランダム選択、当選者決定
 
 
+## 正解例  
+
+Solidityのバージョンを0.4.24にして実行下さい
+
+- 投票  
+<https://github.com/TECHFUND/ethereum-doc/blob/master/Voting.sol>  
+
+- 決済  
+<https://github.com/TECHFUND/ethereum-doc/blob/master/Payment.sol>  
+
+- 抽選  
+<https://github.com/TECHFUND/ethereum-doc/blob/master/Lottery.sol>  
+
 
 Hayakawa Mail Address  
 yi_hayakawa@techfund.jp 
