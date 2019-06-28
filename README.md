@@ -466,11 +466,12 @@ modifier onlyMinter() {
 function mint(address account, uint256 amount) public onlyMinter returns (bool) {
 ```
 
+Minterはどうなっているか？  
 <https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/access/roles/MinterRole.sol>  
 
 ## 追加機能  
 - Mintable  
-トークンを追加発行可能にする　　
+トークンを追加発行可能にする  
 <https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC20/ERC20Mintable.sol>  
 
 - Burnable  
