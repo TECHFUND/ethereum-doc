@@ -1,4 +1,4 @@
-# ethereum-doc
+# Ethereum Guide
 
 ## Pre-install
 
@@ -431,6 +431,52 @@ Solidityのバージョンを0.4.24にして実行下さい
 
 - 抽選  
 <https://github.com/TECHFUND/ethereum-doc/blob/master/Lottery.sol>  
+
+
+# トークン発行
+
+## デフォルトERC20トークン
+- 全体ソース  
+<https://github.com/TECHFUND/ethereum-doc/blob/master/Token_Whole.sol>  
+
+- 圧縮版ソース  
+<https://github.com/TECHFUND/ethereum-doc/blob/master/Token.sol>  
+
+## ライブラリ
+OpenZeppelin  
+- ドキュメント全体  
+<https://docs.openzeppelin.org/>  
+
+- トークン  
+<https://docs.openzeppelin.org/v2.3.0/tokens> 
+<https://docs.openzeppelin.org/v2.3.0/api/token/erc20>  
+
+- クラウドセール  
+<https://docs.openzeppelin.org/v2.3.0/crowdsales>  
+
+## 言語補足  
+
+- 修飾子
+関数の実行に制約を付ける  
+```sol
+modifier onlyMinter() {
+    require(isMinter(msg.sender), "MinterRole: caller does not have the Minter role");
+    _;
+}
+function mint(address account, uint256 amount) public onlyMinter returns (bool) {
+```
+
+<https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/access/roles/MinterRole.sol>  
+
+## 追加機能  
+- Mintable  
+トークンを追加発行可能にする　　
+<https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC20/ERC20Mintable.sol>  
+
+- Burnable  
+トークンをBurn(発行数を減らす)可能にする  
+<https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC20/ERC20Burnable.sol>  
+
 
 
 Hayakawa Mail Address  
